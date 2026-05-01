@@ -1,7 +1,121 @@
-/* ══════════════════════════════════════════
-   60 PREGUNTAS — Planificación Estratégica
-   Dra. Rugina Elidea Quiñonez
-══════════════════════════════════════════ */
+/* AUDIO ENGINE */
+let audioCtx = null;
+let musicNodes = null;
+let musicMuted = false;
+let musicStarted = false;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function startBackgroundMusic() {
+  if (musicStarted) return;
+  musicStarted = true;
+  const ctx = getAudioCtx();
+  const masterGain = ctx.createGain();
+  masterGain.gain.value = musicMuted ? 0 : 0.18;
+  masterGain.connect(ctx.destination);
+  const melodyNotes = [261.63,293.66,329.63,392.00,440.00,392.00,329.63,293.66,261.63,246.94,220.00,246.94,261.63,293.66,329.63,261.63];
+  const melodyDur = 0.35;
+  function playMelodyLoop(startTime) {
+    melodyNotes.forEach((freq,i) => {
+      const osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.connect(g); g.connect(masterGain);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      const t = startTime + i * melodyDur;
+      g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.6,t+0.05); g.gain.linearRampToValueAtTime(0,t+melodyDur-0.05);
+      osc.start(t); osc.stop(t+melodyDur);
+    });
+    const loopEnd = startTime + melodyNotes.length * melodyDur;
+    setTimeout(() => playMelodyLoop(ctx.currentTime), (loopEnd-ctx.currentTime-0.5)*1000);
+  }
+  function playBass() {
+    const bassNotes=[65.41,87.31,73.42,82.41]; const step=0.7; let i=0;
+    function nextBass() {
+      const ctx2=getAudioCtx(), osc=ctx2.createOscillator(), g=ctx2.createGain(), filter=ctx2.createBiquadFilter();
+      filter.type='lowpass'; filter.frequency.value=200;
+      osc.connect(filter); filter.connect(g); g.connect(masterGain);
+      osc.type='sawtooth'; osc.frequency.value=bassNotes[i%bassNotes.length]*2;
+      g.gain.setValueAtTime(0.8,ctx2.currentTime); g.gain.exponentialRampToValueAtTime(0.001,ctx2.currentTime+step*0.9);
+      osc.start(ctx2.currentTime); osc.stop(ctx2.currentTime+step); i++;
+      setTimeout(nextBass,step*1000);
+    }
+    nextBass();
+  }
+  function playShimmer() {
+    const shimmerFreqs=[523.25,659.25,783.99,1046.50]; let si=0;
+    function nextShimmer() {
+      const ctx3=getAudioCtx(), osc=ctx3.createOscillator(), g=ctx3.createGain();
+      osc.connect(g); g.connect(masterGain); osc.type='triangle'; osc.frequency.value=shimmerFreqs[si%shimmerFreqs.length];
+      g.gain.setValueAtTime(0.15,ctx3.currentTime); g.gain.exponentialRampToValueAtTime(0.001,ctx3.currentTime+1.4);
+      osc.start(ctx3.currentTime); osc.stop(ctx3.currentTime+1.5); si++;
+      setTimeout(nextShimmer,1400);
+    }
+    setTimeout(nextShimmer,200);
+  }
+  playMelodyLoop(ctx.currentTime+0.1);
+  setTimeout(playBass,200);
+  setTimeout(playShimmer,400);
+  musicNodes = { masterGain };
+}
+
+function toggleMusic() {
+  musicMuted = !musicMuted;
+  const btn = document.getElementById('music-btn');
+  btn.textContent = musicMuted ? '🔇' : '🎵';
+  btn.classList.toggle('muted', musicMuted);
+  if (musicNodes) {
+    const ctx = getAudioCtx();
+    musicNodes.masterGain.gain.cancelScheduledValues(ctx.currentTime);
+    musicNodes.masterGain.gain.linearRampToValueAtTime(musicMuted?0:0.18, ctx.currentTime+0.3);
+  }
+  if (!musicStarted && !musicMuted) startBackgroundMusic();
+}
+
+function playCorrectSound() {
+  const ctx = getAudioCtx();
+  [523.25,659.25,783.99,1046.50].forEach((freq,i) => {
+    const osc=ctx.createOscillator(), g=ctx.createGain();
+    osc.connect(g); g.connect(ctx.destination); osc.type='sine'; osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.12;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.5,t+0.04); g.gain.exponentialRampToValueAtTime(0.001,t+0.4);
+    osc.start(t); osc.stop(t+0.45);
+  });
+  const osc2=ctx.createOscillator(), g2=ctx.createGain();
+  osc2.connect(g2); g2.connect(ctx.destination); osc2.type='triangle'; osc2.frequency.value=2093;
+  g2.gain.setValueAtTime(0.2,ctx.currentTime+0.42); g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.8);
+  osc2.start(ctx.currentTime+0.42); osc2.stop(ctx.currentTime+0.85);
+  showSoundRipple('correct');
+}
+
+function playWrongSound() {
+  const ctx = getAudioCtx();
+  const osc=ctx.createOscillator(), g=ctx.createGain();
+  osc.connect(g); g.connect(ctx.destination); osc.type='sawtooth';
+  osc.frequency.setValueAtTime(440,ctx.currentTime); osc.frequency.linearRampToValueAtTime(110,ctx.currentTime+0.6);
+  g.gain.setValueAtTime(0.4,ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.7);
+  osc.start(ctx.currentTime); osc.stop(ctx.currentTime+0.75);
+  const osc2=ctx.createOscillator(), g2=ctx.createGain(), distortion=ctx.createWaveShaper();
+  const curve=new Float32Array(256);
+  for(let i=0;i<256;i++){const x=(i*2)/256-1;curve[i]=(Math.PI+400)*x/(Math.PI+400*Math.abs(x));}
+  distortion.curve=curve;
+  osc2.connect(distortion); distortion.connect(g2); g2.connect(ctx.destination);
+  osc2.type='square'; osc2.frequency.value=160;
+  g2.gain.setValueAtTime(0.15,ctx.currentTime); g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);
+  osc2.start(ctx.currentTime); osc2.stop(ctx.currentTime+0.55);
+  showSoundRipple('wrong');
+}
+
+function showSoundRipple(type) {
+  const el=document.createElement('div');
+  el.className=`sound-ripple ${type}`;
+  el.style.cssText='top:50%;left:50%;margin:-30px 0 0 -30px;';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),700);
+}
+
+/* 60 PREGUNTAS */
 let questions = [
   {text:"En el análisis del macroentorno, ¿cuál es el propósito principal de identificar factores económicos, políticos, sociales, tecnológicos, ecológicos y legales?",options:["Controlar únicamente las actividades internas de la empresa.","Analizar factores externos que pueden influir en las decisiones estratégicas.","Determinar únicamente los costos de producción.","Supervisar el desempeño de los empleados."],correct:1,difficulty:"easy",justification:"La respuesta correcta es la b, porque el análisis del macroentorno busca identificar factores externos que afectan a la empresa, permitiendo anticipar oportunidades y amenazas para tomar mejores decisiones estratégicas."},
   {text:"¿Cuáles de los siguientes elementos corresponden con mayor claridad al microentorno de una empresa?",options:["Clientes, proveedores y competidores.","Inflación y políticas gubernamentales.","Cambios climáticos globales.","Tendencias culturales internacionales."],correct:0,difficulty:"easy",justification:"La respuesta correcta es la a, ya que el microentorno está formado por actores cercanos a la empresa que influyen directamente en sus operaciones y competitividad."},
@@ -65,254 +179,297 @@ let questions = [
   {text:"¿Qué mide BIEN el aprendizaje en el CMI?",options:["Desarrollo de competencias, innovación y capacitación del personal.","Solo ingresos financieros.","Cantidad de oficinas corporativas.","Número de productos almacenados."],correct:0,difficulty:"hard",justification:"La respuesta correcta es la a, porque la perspectiva de aprendizaje mide capacidades que impulsan el crecimiento estratégico."}
 ];
 
-/* ══ CONFIG ══ */
-const PRIZES  = ['$100','$200','$300','$500','$1.000','$2.000','$4.000','$8.000','$16.000','$32.000','$64.000','$125.000','$250.000','$500.000','$1.000.000'];
-const LETTERS = ['A','B','C','D'];
-const DIFF_LABEL = { easy:'Fácil', medium:'Media', hard:'Difícil' };
-const DIFF_CLASS = { easy:'diff-easy', medium:'diff-medium', hard:'diff-hard' };
+const PRIZES=['$100','$200','$300','$500','$1.000','$2.000','$4.000','$8.000','$16.000','$32.000','$64.000','$125.000','$250.000','$500.000','$1.000.000'];
+const LETTERS=['A','B','C','D'];
+const DIFF_LABEL={easy:'Fácil',medium:'Media',hard:'Difícil'};
+const DIFF_CLASS={easy:'diff-easy',medium:'diff-medium',hard:'diff-hard'};
 
-let currentIdx = 0, score = 0, shuffled = [], gameRunning = false;
-let lifeline5050Used = false;
+let currentIdx=0,score=0,shuffled=[],gameRunning=false;
+let lifeline5050Used=false,lifelineAudienceUsed=false,lifelinePhoneUsed=false;
+let currentShuffledOrder=[],currentCorrectDisplay=0;
 
-/* ══ TABS ══ */
-function switchTab(t) {
-  document.getElementById('tab-play-btn').classList.toggle('active', t==='play');
-  document.getElementById('tab-edit-btn').classList.toggle('active', t==='edit');
-  document.getElementById('play-tab').classList.toggle('active', t==='play');
-  document.getElementById('edit-tab').classList.toggle('active', t==='edit');
-  if (t==='edit') renderEditor();
+document.addEventListener('click',function initAudio(){if(!musicStarted&&!musicMuted)startBackgroundMusic();document.removeEventListener('click',initAudio);},{once:true});
+
+function switchTab(t){
+  document.getElementById('tab-play-btn').classList.toggle('active',t==='play');
+  document.getElementById('tab-edit-btn').classList.toggle('active',t==='edit');
+  document.getElementById('play-tab').classList.toggle('active',t==='play');
+  document.getElementById('edit-tab').classList.toggle('active',t==='edit');
+  if(t==='edit')renderEditor();
 }
 
-/* ══ MENU ══ */
-function showMenu() {
-  document.getElementById('menu-total').textContent = questions.length;
-  ['game-screen','result-screen'].forEach(id => document.getElementById(id).style.display='none');
+function showMenu(){
+  document.getElementById('menu-total').textContent=questions.length;
+  ['game-screen','result-screen'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('menu-screen').style.display='block';
 }
 
-/* ══ GAME ══ */
-function startGame() {
-  if (!questions.length) { alert('No hay preguntas cargadas.'); return; }
-  shuffled = [...questions].sort(() => Math.random()-0.5);
-  currentIdx = 0; score = 0; gameRunning = true;
-  lifeline5050Used = false;
+function startGame(){
+  if(!questions.length){alert('No hay preguntas cargadas.');return;}
+  shuffled=[...questions].sort(()=>Math.random()-0.5);
+  currentIdx=0;score=0;gameRunning=true;
+  lifeline5050Used=false;lifelineAudienceUsed=false;lifelinePhoneUsed=false;
   document.getElementById('menu-screen').style.display='none';
   document.getElementById('result-screen').style.display='none';
   document.getElementById('game-screen').style.display='block';
-  updateLifelineUI();
-  renderQ();
+  updateLifelineUI();renderQ();
+  if(!musicStarted&&!musicMuted)startBackgroundMusic();
 }
 
-function updateLifelineUI() {
-  const btn = document.getElementById('ll-5050');
-  btn.disabled = lifeline5050Used;
-  btn.classList.toggle('used', lifeline5050Used);
+function updateLifelineUI(){
+  const b5050=document.getElementById('ll-5050');
+  b5050.disabled=lifeline5050Used;b5050.classList.toggle('used',lifeline5050Used);
+  const bAud=document.getElementById('ll-audience');
+  bAud.disabled=lifelineAudienceUsed;bAud.classList.toggle('used',lifelineAudienceUsed);
+  const bPhone=document.getElementById('ll-phone');
+  bPhone.disabled=lifelinePhoneUsed;bPhone.classList.toggle('used',lifelinePhoneUsed);
 }
 
-function renderPrize() {
-  const bar = document.getElementById('prize-ladder');
-  bar.innerHTML = '';
-  const steps = Math.min(shuffled.length, PRIZES.length);
-  for (let i=0; i<steps; i++) {
-    const c = document.createElement('div');
-    c.className = 'prize-chip' + (i===currentIdx?' current':(i<currentIdx?' done':''));
-    c.textContent = PRIZES[i];
-    bar.appendChild(c);
+function renderPrize(){
+  const bar=document.getElementById('prize-ladder');bar.innerHTML='';
+  const steps=Math.min(shuffled.length,PRIZES.length);
+  for(let i=0;i<steps;i++){
+    const c=document.createElement('div');
+    c.className='prize-chip'+(i===currentIdx?' current':(i<currentIdx?' done':''));
+    c.textContent=PRIZES[i];bar.appendChild(c);
   }
 }
 
-function renderQ() {
-  const q = shuffled[currentIdx];
-  const total = shuffled.length;
-
-  const pct = Math.round((currentIdx/total)*100);
-  document.getElementById('prog-fill').style.width = pct+'%';
-  document.getElementById('prog-text').textContent = `Pregunta ${currentIdx+1}`;
-  document.getElementById('prog-pct').textContent = pct+'%';
-
-  document.getElementById('q-num-label').textContent = `Pregunta ${currentIdx+1} de ${total}`;
-  const db = document.getElementById('diff-badge');
-  db.textContent = DIFF_LABEL[q.difficulty]||'Media';
-  db.className = 'diff-badge ' + (DIFF_CLASS[q.difficulty]||'diff-medium');
-
-  document.getElementById('q-text').textContent = q.text;
-
-  const grid = document.getElementById('opts-grid');
-  grid.innerHTML = '';
-  q.options.forEach((opt,i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.id = `opt-${i}`;
-    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span><span>${opt}</span>`;
-    btn.onclick = () => selectAnswer(i, btn);
+function renderQ(){
+  const q=shuffled[currentIdx];const total=shuffled.length;
+  const pct=Math.round((currentIdx/total)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-text').textContent=`Pregunta ${currentIdx+1}`;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('q-num-label').textContent=`Pregunta ${currentIdx+1} de ${total}`;
+  const db=document.getElementById('diff-badge');
+  db.textContent=DIFF_LABEL[q.difficulty]||'Media';
+  db.className='diff-badge '+(DIFF_CLASS[q.difficulty]||'diff-medium');
+  document.getElementById('q-text').textContent=q.text;
+  currentShuffledOrder=[0,1,2,3].sort(()=>Math.random()-0.5);
+  currentCorrectDisplay=currentShuffledOrder.indexOf(q.correct);
+  const grid=document.getElementById('opts-grid');grid.innerHTML='';
+  currentShuffledOrder.forEach((origIdx,displayPos)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';btn.id=`opt-display-${displayPos}`;
+    btn.innerHTML=`<span class="opt-letter">${LETTERS[displayPos]}</span><span>${q.options[origIdx]}</span>`;
+    btn.onclick=()=>selectAnswer(displayPos,btn);
     grid.appendChild(btn);
   });
-
-  const fb = document.getElementById('feedback');
-  fb.className = 'feedback';
+  const fb=document.getElementById('feedback');fb.className='feedback';
   document.getElementById('next-btn').style.display='none';
-  updateLifelineUI();
-  renderPrize();
+  updateLifelineUI();renderPrize();
 }
 
-function selectAnswer(idx, clickedBtn) {
-  if (!gameRunning) return;
-  const q = shuffled[currentIdx];
-  document.querySelectorAll('.opt-btn').forEach(b => b.disabled=true);
-
-  const fb = document.getElementById('feedback');
-  const correct = idx === q.correct;
-
-  if (correct) {
-    clickedBtn.classList.add('correct');
-    fb.className = 'feedback ok show';
-    document.getElementById('fb-icon').textContent = '✓';
-    document.getElementById('fb-verdict').textContent = '¡Correcto!';
-    score++;
-  } else {
+function selectAnswer(displayPos,clickedBtn){
+  if(!gameRunning)return;
+  const q=shuffled[currentIdx];
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('feedback');
+  const correct=displayPos===currentCorrectDisplay;
+  if(correct){
+    clickedBtn.classList.add('correct');fb.className='feedback ok show';
+    document.getElementById('fb-icon').textContent='✓';
+    document.getElementById('fb-verdict').textContent='¡Correcto!';
+    score++;playCorrectSound();
+  }else{
     clickedBtn.classList.add('wrong');
-    document.getElementById(`opt-${q.correct}`).classList.add('correct');
-    fb.className = 'feedback bad show';
-    document.getElementById('fb-icon').textContent = '✗';
-    document.getElementById('fb-verdict').textContent = 'Incorrecto';
+    document.getElementById(`opt-display-${currentCorrectDisplay}`).classList.add('correct');
+    fb.className='feedback bad show';
+    document.getElementById('fb-icon').textContent='✗';
+    document.getElementById('fb-verdict').textContent='Incorrecto';
+    playWrongSound();
   }
-  document.getElementById('fb-answer').textContent = `${LETTERS[q.correct]}`;
-  document.getElementById('fb-just').textContent = q.justification;
-
-  const nb = document.getElementById('next-btn');
-  nb.style.display = 'block';
-  nb.textContent = currentIdx+1 < shuffled.length ? 'Siguiente pregunta →' : 'Ver resultados →';
+  document.getElementById('fb-answer').textContent=LETTERS[currentCorrectDisplay];
+  document.getElementById('fb-just').textContent=q.justification;
+  const nb=document.getElementById('next-btn');
+  nb.style.display='block';
+  nb.textContent=currentIdx+1<shuffled.length?'Siguiente pregunta →':'Ver resultados →';
 }
 
-/* ══ 50/50 COMODÍN ══ */
-function use5050() {
-  if (lifeline5050Used || !gameRunning) return;
-
-  const q = shuffled[currentIdx];
-  const correct = q.correct;
-
-  // Get all wrong option indices
-  const wrongOpts = [0,1,2,3].filter(i => i !== correct);
-  // Shuffle and pick 2 to eliminate
-  wrongOpts.sort(() => Math.random()-0.5);
-  const toEliminate = wrongOpts.slice(0,2);
-
-  // Animate elimination
-  toEliminate.forEach((i, idx) => {
-    setTimeout(() => {
-      const btn = document.getElementById(`opt-${i}`);
-      if (btn) {
-        btn.classList.add('hiding');
-        setTimeout(() => btn.classList.add('hidden-5050'), 500);
-      }
-    }, idx * 300);
+function use5050(){
+  if(lifeline5050Used||!gameRunning)return;
+  const wrongDP=[0,1,2,3].filter(i=>i!==currentCorrectDisplay);
+  wrongDP.sort(()=>Math.random()-0.5);
+  wrongDP.slice(0,2).forEach((displayPos,idx)=>{
+    setTimeout(()=>{
+      const btn=document.getElementById(`opt-display-${displayPos}`);
+      if(btn){btn.classList.add('hiding');setTimeout(()=>btn.classList.add('hidden-5050'),500);}
+    },idx*300);
   });
-
-  lifeline5050Used = true;
-  updateLifelineUI();
-
-  // Show toast
-  const toast = document.getElementById('ll-toast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2200);
+  lifeline5050Used=true;updateLifelineUI();
+  const toast=document.getElementById('ll-toast');
+  toast.textContent='🎯 ¡Comodín 50/50 activado!';toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2200);
+  const ctx=getAudioCtx();
+  [400,600,800].forEach((freq,i)=>{
+    const osc=ctx.createOscillator(),g=ctx.createGain();
+    osc.connect(g);g.connect(ctx.destination);osc.type='sine';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.1;
+    g.gain.setValueAtTime(0.25,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.3);
+    osc.start(t);osc.stop(t+0.35);
+  });
 }
 
-function nextQ() {
-  currentIdx++;
-  if (currentIdx >= shuffled.length) { showResult(); return; }
-  renderQ();
+function useAudience(){
+  if(lifelineAudienceUsed||!gameRunning)return;
+  lifelineAudienceUsed=true;updateLifelineUI();
+  const correctPct=45+Math.floor(Math.random()*28);
+  const remaining=100-correctPct;
+  const wrongs=[0,1,2,3].filter(i=>i!==currentCorrectDisplay);
+  const a=Math.floor(Math.random()*(remaining-2));
+  const b=Math.floor(Math.random()*(remaining-a-1));
+  const c=remaining-a-b;
+  const wrongPcts=[a,b,c].sort(()=>Math.random()-0.5);
+  const pcts=[0,0,0,0];pcts[currentCorrectDisplay]=correctPct;
+  wrongs.forEach((wi,i)=>pcts[wi]=wrongPcts[i]);
+  const chart=document.getElementById('aud-chart');chart.innerHTML='';
+  pcts.forEach((pct,displayPos)=>{
+    const col=document.createElement('div');col.className='aud-col';
+    const isCorrect=displayPos===currentCorrectDisplay;
+    col.innerHTML=`<div class="aud-pct">${pct}%</div><div class="aud-bar-wrap"><div class="aud-bar ${isCorrect?'highlight':''}" id="aud-bar-${displayPos}" style="height:0px;"></div></div><div class="aud-letter">${LETTERS[displayPos]}</div>`;
+    chart.appendChild(col);
+  });
+  document.getElementById('modal-audience').style.display='flex';
+  setTimeout(()=>{pcts.forEach((pct,displayPos)=>{const bar=document.getElementById(`aud-bar-${displayPos}`);if(bar)bar.style.height=pct+'px';});},80);
+  playLifelineSound([300,500,700,900,1100]);
+  const toast=document.getElementById('ll-toast');
+  toast.textContent='👥 ¡El público ha votado!';toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
 }
 
-function showResult() {
-  gameRunning = false;
+const expertNames=['Dra. Marlene Vargas','Ing. Roberto Silva','Lic. Andrea Torres','Dr. Carlos Mendoza','Prof. Isabel Ramírez'];
+const phoneResponses=[
+  answer=>`Mira, en estos temas de planificación estratégica tengo bastante claro que la respuesta correcta es la opción <strong>${answer}</strong>. Te lo digo con seguridad, esa es la que aplica aquí.`,
+  answer=>`Hmm, déjame pensar… sí, estoy bastante seguro de que es la <strong>${answer}</strong>. Recuerdo haberlo estudiado bien. ¡Confía en mí!`,
+  answer=>`Sin duda alguna, la <strong>${answer}</strong>. Estos conceptos los trabajé en mi tesis doctoral. Es la respuesta correcta, apuesta por ella.`,
+  answer=>`Oye, creo que es la <strong>${answer}</strong>. El análisis que estudiamos juntos apunta directamente a esa opción. ¡Suerte!`,
+  answer=>`Ah, conozco este tema. La respuesta es la <strong>${answer}</strong>. Se relaciona con los fundamentos que revisamos en el curso. ¡Vamos!`
+];
+
+function usePhone(){
+  if(lifelinePhoneUsed||!gameRunning)return;
+  lifelinePhoneUsed=true;updateLifelineUI();
+  const name=expertNames[Math.floor(Math.random()*expertNames.length)];
+  const responseTemplate=phoneResponses[Math.floor(Math.random()*phoneResponses.length)];
+  const answer=LETTERS[currentCorrectDisplay];
+  document.getElementById('phone-name').textContent=name;
+  document.getElementById('phone-status').textContent='Llamando…';
+  document.getElementById('phone-dots').style.display='flex';
+  document.getElementById('phone-bubble').style.display='none';
+  document.getElementById('modal-phone').style.display='flex';
+  playPhoneRingSound();
+  setTimeout(()=>{
+    document.getElementById('phone-status').textContent='✅ En línea — 30 segundos';
+    document.getElementById('phone-dots').style.display='none';
+    const bubble=document.getElementById('phone-bubble');
+    bubble.innerHTML=responseTemplate(answer);bubble.style.display='block';
+    playLifelineSound([600,800,1000]);
+  },2500);
+  const toast=document.getElementById('ll-toast');
+  toast.textContent='📞 ¡Conectando con tu amigo!';toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2200);
+}
+
+function closeModal(id){
+  const el=document.getElementById(id);
+  el.style.animation='none';el.style.opacity='0';el.style.transition='opacity 0.2s';
+  setTimeout(()=>{el.style.display='none';el.style.opacity='';el.style.transition='';el.style.animation='';},200);
+}
+
+function playLifelineSound(freqs){
+  const ctx=getAudioCtx();
+  freqs.forEach((freq,i)=>{
+    const osc=ctx.createOscillator(),g=ctx.createGain();
+    osc.connect(g);g.connect(ctx.destination);osc.type='sine';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.08;
+    g.gain.setValueAtTime(0.22,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.35);
+    osc.start(t);osc.stop(t+0.4);
+  });
+}
+
+function playPhoneRingSound(){
+  const ctx=getAudioCtx();
+  function ring(startT){
+    [880,1100].forEach((freq,i)=>{
+      const osc=ctx.createOscillator(),g=ctx.createGain();
+      osc.connect(g);g.connect(ctx.destination);osc.type='sine';osc.frequency.value=freq;
+      const t=startT+i*0.15;
+      g.gain.setValueAtTime(0.2,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.25);
+      osc.start(t);osc.stop(t+0.3);
+    });
+  }
+  ring(ctx.currentTime);ring(ctx.currentTime+0.7);ring(ctx.currentTime+1.4);
+}
+
+function nextQ(){currentIdx++;if(currentIdx>=shuffled.length){showResult();return;}renderQ();}
+
+function showResult(){
+  gameRunning=false;
   document.getElementById('game-screen').style.display='none';
   document.getElementById('result-screen').style.display='block';
-  const total = shuffled.length;
-  const pct = Math.round((score/total)*100);
-  const circle = document.getElementById('res-circle');
-  circle.className = 'result-circle ' + (pct>=60?'win':'lose');
-  circle.textContent = pct>=80?'🏆':pct>=60?'🌟':'📚';
-  document.getElementById('res-score').textContent = `${score}/${total}`;
-  document.getElementById('res-pct').textContent = `${pct}% de respuestas correctas`;
-  document.getElementById('res-msg').textContent = pct>=80?'¡Excelente dominio del tema!':pct>=60?'Buen desempeño, sigue reforzando.':'Revisa los temas y vuelve a intentarlo.';
-  document.getElementById('rs-ok').textContent = score;
-  document.getElementById('rs-bad').textContent = total-score;
-  document.getElementById('rs-total').textContent = total;
-}
-
-function confirmExit() {
-  if (confirm('¿Seguro que deseas salir? Se perderá el progreso actual.')) {
-    gameRunning = false;
-    showMenu();
+  const total=shuffled.length,pct=Math.round((score/total)*100);
+  const circle=document.getElementById('res-circle');
+  circle.className='result-circle '+(pct>=60?'win':'lose');
+  circle.textContent=pct>=80?'🏆':pct>=60?'🌟':'📚';
+  document.getElementById('res-score').textContent=`${score}/${total}`;
+  document.getElementById('res-pct').textContent=`${pct}% de respuestas correctas`;
+  document.getElementById('res-msg').textContent=pct>=80?'¡Excelente dominio del tema!':pct>=60?'Buen desempeño, sigue reforzando.':'Revisa los temas y vuelve a intentarlo.';
+  document.getElementById('rs-ok').textContent=score;
+  document.getElementById('rs-bad').textContent=total-score;
+  document.getElementById('rs-total').textContent=total;
+  const ctx=getAudioCtx();
+  if(pct>=60){
+    [523,659,784,1047,784,1047,1319].forEach((freq,i)=>{
+      const osc=ctx.createOscillator(),g=ctx.createGain();
+      osc.connect(g);g.connect(ctx.destination);osc.type='sine';osc.frequency.value=freq;
+      const t=ctx.currentTime+i*0.18;
+      g.gain.setValueAtTime(0.3,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+      osc.start(t);osc.stop(t+0.55);
+    });
+  }else{
+    const osc=ctx.createOscillator(),g=ctx.createGain();
+    osc.connect(g);g.connect(ctx.destination);osc.type='sawtooth';
+    osc.frequency.setValueAtTime(300,ctx.currentTime);osc.frequency.linearRampToValueAtTime(80,ctx.currentTime+1.5);
+    g.gain.setValueAtTime(0.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.6);
+    osc.start(ctx.currentTime);osc.stop(ctx.currentTime+1.7);
   }
 }
 
-/* ══ EDITOR ══ */
-function renderEditor() {
-  document.getElementById('editor-count').textContent = `Preguntas: ${questions.length}`;
-  const list = document.getElementById('editor-list');
-  list.innerHTML = '';
-  questions.forEach((q, qi) => {
-    const card = document.createElement('div');
-    card.className = 'eq-card';
-    const optsHtml = q.options.map((o,oi) => `
-      <div>
-        <label style="margin-top:0;">${LETTERS[oi]})</label>
-        <input type="text" value="${esc(o)}" oninput="questions[${qi}].options[${oi}]=this.value;updateSelect(${qi})">
-      </div>`).join('');
-    const selectOpts = q.options.map((o,oi) =>
-      `<option value="${oi}" ${q.correct===oi?'selected':''}>${LETTERS[oi]}) ${esc(o)}</option>`).join('');
-    card.innerHTML = `
-      <div class="eq-header">
-        <span class="eq-num">PREGUNTA ${qi+1}</span>
-        <button class="eq-del" onclick="delQ(${qi})">✕ Eliminar</button>
-      </div>
-      <label>Enunciado</label>
-      <textarea rows="3" oninput="questions[${qi}].text=this.value">${esc(q.text)}</textarea>
-      <label>Opciones</label>
-      <div class="opts-2col">${optsHtml}</div>
-      <label>Respuesta correcta</label>
-      <select id="sel-${qi}" onchange="questions[${qi}].correct=parseInt(this.value)">${selectOpts}</select>
-      <label>Justificación</label>
-      <textarea rows="3" oninput="questions[${qi}].justification=this.value">${esc(q.justification)}</textarea>
-      <label>Dificultad</label>
-      <select onchange="questions[${qi}].difficulty=this.value">
-        <option value="easy"   ${q.difficulty==='easy'?'selected':''}>Fácil</option>
-        <option value="medium" ${q.difficulty==='medium'?'selected':''}>Media</option>
-        <option value="hard"   ${q.difficulty==='hard'?'selected':''}>Difícil</option>
-      </select>`;
+function renderEditor(){
+  document.getElementById('editor-count').textContent=`Preguntas: ${questions.length}`;
+  const list=document.getElementById('editor-list');list.innerHTML='';
+  questions.forEach((q,qi)=>{
+    const card=document.createElement('div');card.className='eq-card';
+    const optsHtml=q.options.map((o,oi)=>`<div><label style="margin-top:0;">${LETTERS[oi]})</label><input type="text" value="${esc(o)}" oninput="questions[${qi}].options[${oi}]=this.value;updateSelect(${qi})"></div>`).join('');
+    const selectOpts=q.options.map((o,oi)=>`<option value="${oi}" ${q.correct===oi?'selected':''}>${LETTERS[oi]}) ${esc(o)}</option>`).join('');
+    card.innerHTML=`<div class="eq-header"><span class="eq-num">PREGUNTA ${qi+1}</span><button class="eq-del" onclick="delQ(${qi})">✕ Eliminar</button></div><label>Enunciado</label><textarea rows="3" oninput="questions[${qi}].text=this.value">${esc(q.text)}</textarea><label>Opciones</label><div class="opts-2col">${optsHtml}</div><label>Respuesta correcta</label><select id="sel-${qi}" onchange="questions[${qi}].correct=parseInt(this.value)">${selectOpts}</select><label>Justificación</label><textarea rows="3" oninput="questions[${qi}].justification=this.value">${esc(q.justification)}</textarea><label>Dificultad</label><select onchange="questions[${qi}].difficulty=this.value"><option value="easy" ${q.difficulty==='easy'?'selected':''}>Fácil</option><option value="medium" ${q.difficulty==='medium'?'selected':''}>Media</option><option value="hard" ${q.difficulty==='hard'?'selected':''}>Difícil</option></select>`;
     list.appendChild(card);
   });
 }
 
-function updateSelect(qi) {
-  const sel = document.getElementById('sel-'+qi);
-  if (!sel) return;
-  sel.innerHTML = questions[qi].options.map((o,oi) =>
-    `<option value="${oi}" ${questions[qi].correct===oi?'selected':''}>${LETTERS[oi]}) ${esc(o)}</option>`).join('');
+function updateSelect(qi){
+  const sel=document.getElementById('sel-'+qi);if(!sel)return;
+  sel.innerHTML=questions[qi].options.map((o,oi)=>`<option value="${oi}" ${questions[qi].correct===oi?'selected':''}>${LETTERS[oi]}) ${esc(o)}</option>`).join('');
 }
 
-function addQ() {
-  questions.push({ text:'', options:['','','',''], correct:0, difficulty:'medium', justification:'' });
+function addQ(){
+  questions.push({text:'',options:['','','',''],correct:0,difficulty:'medium',justification:''});
   renderEditor();
-  setTimeout(() => { const l = document.getElementById('editor-list'); l.scrollTop = l.scrollHeight; }, 80);
+  setTimeout(()=>{const l=document.getElementById('editor-list');l.scrollTop=l.scrollHeight;},80);
 }
 
-function delQ(qi) {
-  if (questions.length<=1) { alert('Debe haber al menos una pregunta.'); return; }
-  if (confirm('¿Eliminar esta pregunta?')) { questions.splice(qi,1); renderEditor(); }
+function delQ(qi){
+  if(questions.length<=1){alert('Debe haber al menos una pregunta.');return;}
+  if(confirm('¿Eliminar esta pregunta?')){questions.splice(qi,1);renderEditor();}
 }
 
-function saveAndPlay() {
-  const incomplete = questions.filter(q => !q.text.trim() || q.options.some(o=>!o.trim()) || !q.justification.trim());
-  if (incomplete.length) { alert(`Hay ${incomplete.length} pregunta(s) con campos vacíos.`); return; }
-  switchTab('play');
-  startGame();
+function saveAndPlay(){
+  const incomplete=questions.filter(q=>!q.text.trim()||q.options.some(o=>!o.trim())||!q.justification.trim());
+  if(incomplete.length){alert(`Hay ${incomplete.length} pregunta(s) con campos vacíos.`);return;}
+  switchTab('play');startGame();
 }
 
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-/* ══ INIT ══ */
 showMenu();
