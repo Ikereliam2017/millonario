@@ -102,58 +102,58 @@ function showSoundRipple(type) {
   setTimeout(()=>el.remove(),700);
 }
 
-// ── PREGUNTAS EXTRAÍDAS DE LAS HOJAS MANUSCRITAS ────────────────────────────
+// ── PREGUNTAS ────────────────────────────────────────────────────────────────
 let questions = [
   // 1
   {text:"En el análisis del macroentorno, ¿cuál es el propósito principal de identificar factores como los económicos, políticos, sociales, tecnológicos, ecológicos y legales?",
    options:["Controlar únicamente las actividades internas de la empresa","Determinar únicamente los costos de producción","Analizar factores externos que pueden influir en las decisiones estratégicas","Supervisar el desempeño de los empleados"],
    correct:2,difficulty:"easy",
-   justification:"El análisis del macroentorno identifica factores externos que afectan a la empresa, permitiendo anticipar oportunidades y amenazas para tomar mejores decisiones estratégicas."},
+   justification:"Porque el análisis del macroentorno busca identificar factores externos que afectan a la empresa, permitiendo anticipar oportunidades y amenazas para tomar mejores decisiones estratégicas."},
   // 2
   {text:"¿Cuáles de los siguientes elementos corresponden con mayor claridad al microentorno de una empresa?",
    options:["Inflación y políticas gubernamentales","Cambios climáticos globales","Clientes, proveedores y competidores","Tendencias culturales internacionales"],
    correct:2,difficulty:"easy",
-   justification:"El microentorno está formado por actores cercanos a la empresa que influyen directamente en sus operaciones: clientes, proveedores y competidores."},
+   justification:"Ya que el microentorno está formado por actores cercanos a la empresa que influyen directamente en sus operaciones y competitividad."},
   // 3
   {text:"Al construir la matriz FODA, ¿qué combinación describe correctamente cada cuadrante?",
    options:["Solo aspectos financieros y administrativos","Elementos tecnológicos y legales únicamente","Variables económicas y sociales exclusivamente","Factores internos y externos positivos y negativos"],
    correct:3,difficulty:"medium",
-   justification:"La matriz FODA combina fortalezas y debilidades internas con oportunidades y amenazas externas, abarcando factores positivos y negativos de ambos entornos."},
+   justification:"Porque la matriz FODA combina fortalezas y debilidades internas con oportunidades y amenazas externas."},
   // 4
   {text:"En la identificación de factores estratégicos externos, ¿cuál es el criterio más adecuado para considerar que un factor detectado es realmente estratégico?",
    options:["Que sea fácil de controlar por la organización","Que dependa solo de los empleados","Que tenga impacto significativo en la empresa y sus objetivos","Que no afecte la competencia"],
    correct:2,difficulty:"medium",
-   justification:"Un factor estratégico es aquel que puede influir considerablemente en el desempeño y éxito de la empresa, independientemente de si es controlable o no."},
+   justification:"Porque un factor estratégico es aquel que puede influir considerablemente en el desempeño y éxito de la empresa."},
   // 5
   {text:"Respecto a los factores estratégicos internos, ¿cuál de los siguientes ejemplos ilustra mejor una fortaleza interna relevante para la estrategia?",
    options:["Alta rotación de personal","Marca reconocida y buena reputación","Tecnología obsoleta","Disminución de ventas"],
    correct:1,difficulty:"easy",
-   justification:"Una marca sólida representa una ventaja competitiva interna que fortalece la estrategia empresarial, diferenciándola de debilidades como rotación de personal o tecnología obsoleta."},
+   justification:"Ya que una marca sólida representa una ventaja competitiva interna que fortalece la estrategia empresarial."},
   // 6
   {text:"Al formular objetivos estratégicos, ¿cuál de las siguientes características es esencial para que un objetivo sea útil en la gestión?",
    options:["Que no tenga límite de tiempo","Que dependa del azar","Que sea ambiguo y flexible","Que sea medible y específico"],
    correct:3,difficulty:"easy",
-   justification:"Los objetivos deben ser claros y medibles para facilitar el control y evaluación de resultados; esta es la base del enfoque SMART."},
+   justification:"Porque los objetivos deben ser claros y medibles para facilitar el control y evaluación de resultados."},
   // 7
   {text:"Las estrategias maestras (como crecimiento, estabilidad o reducción/recorte) se caracterizan por:",
    options:["Ser actividades operativas diarias","Limitar el desarrollo organizacional","Orientar la dirección general de la empresa","Aplicarse solo en pequeñas empresas"],
    correct:2,difficulty:"medium",
-   justification:"Las estrategias maestras definen el rumbo principal que seguirá la organización a largo plazo, no son actividades operativas del día a día."},
+   justification:"Debido a que las estrategias maestras definen el rumbo principal que seguirá la organización."},
   // 8
   {text:"¿Cuál es el rol principal de las políticas empresariales dentro del proceso de implementación estratégica?",
    options:["Reemplazar los objetivos estratégicos","Guiar la toma de decisiones y acciones organizacionales","Eliminar la necesidad de planificación","Reducir únicamente costos"],
    correct:1,difficulty:"medium",
-   justification:"Las políticas sirven como lineamientos que orientan las decisiones y la ejecución de estrategias, dando coherencia a la organización."},
+   justification:"porque las políticas sirven como lineamientos que orientan las decisiones y la ejecución de estrategias."},
   // 9
   {text:"En la implementación del plan estratégico, ¿cuál de los siguientes aspectos es más crítico para asegurar que las estrategias formuladas se conviertan en resultados concretos?",
    options:["Improvisación constante","Ausencia de liderazgo","Falta de seguimiento","Comunicación y coordinación efectiva"],
    correct:3,difficulty:"hard",
-   justification:"Una buena coordinación y comunicación permiten ejecutar correctamente las estrategias, asegurando que todos los actores conozcan su rol y actúen alineados."},
+   justification:"porque la ejecución de una estrategia no depende únicamente de su diseño, sino de cómo se implementa dentro de la organización. La comunicación clara permite que todos los miembros comprendan los objetivos, mientras que la coordinación asegura que las diferentes áreas trabajen de forma alineada."},
   // 10
   {text:"¿Cuál es la relación más adecuada entre el análisis FODA y la formulación de estrategias?",
    options:["Reemplazar la planificación","Eliminar riesgos","Analizar únicamente debilidades","Diseñar estrategias basadas en el entorno"],
    correct:3,difficulty:"medium",
-   justification:"El análisis FODA permite identificar fortalezas, oportunidades, debilidades y amenazas, proporcionando una visión integral para formular estrategias."},
+   justification:"porque el análisis FODA permite identificar fortalezas, oportunidades, debilidades y amenazas, lo que proporciona una visión integral de la situación de la empresa."},
   // 11
   {text:"Una empresa del sector minorista enfrenta incertidumbre por elecciones presidenciales que podrían cambiar las regulaciones laborales. ¿En qué etapa del proceso estratégico debe analizarse primero este factor y por qué?",
    options:["En la etapa de implementación, porque ahí se ejecutan las decisiones."," En el control estratégico, porque se evalúan resultados finales.","En el análisis interno, porque afecta directamente al personal.","En el análisis del macroentorno, porque es un factor político externo que no depende de la empresa."],
@@ -163,247 +163,303 @@ let questions = [
   {text:"En el análisis del macroentorno, ¿cuál de las siguientes variables pertenece parcialmente a este nivel y no al microentorno?",
    options:["Clientes","Competidores","Políticas gubernamentales","Proveedores"],
    correct:2,difficulty:"medium",
-   justification:"Las políticas gubernamentales afectan a todas las empresas del entorno general y forman parte del macroentorno, no del microentorno."},
+   justification:"porque las políticas gubernamentales son factores externos que impactan a todas las empresas de manera general. A diferencia de clientes o proveedores, que pertenecen al microentorno, estas decisiones no pueden ser controladas por la empresa y requieren adaptación estratégica."},
   // 13
   {text:"En formulación estratégica, ¿cuál es la principal diferencia funcional entre misión y visión que justifica incluir la visión antes de los objetivos SMART?",
    options:["Sustituye la misión","Define tareas diarias","Establece normas internas","Guiar el rumbo estratégico"],
    correct:3,difficulty:"medium",
-   justification:"La visión establece hacia dónde quiere llegar la empresa en el futuro, orientando las decisiones estratégicas a largo plazo."},
+   justification:"porque la visión establece hacia dónde quiere llegar la empresa en el futuro. No se enfoca en el presente ni en tareas operativas, sino en orientar las decisiones estratégicas a largo plazo, motivando a la organización a avanzar en una dirección clara."},
   // 14
   {text:"En la identificación de factores clave externos para un plan estratégico, ¿cuál de los siguientes ejemplos describe mejor una oportunidad?",
    options:["Factor interno negativo","Factor externo negativo","Factor interno positivo","Factor externo favorable"],
    correct:3,difficulty:"easy",
-   justification:"Una oportunidad es una condición del entorno externo que puede ser aprovechada por la empresa para mejorar su posición competitiva."},
+   justification:"porque una oportunidad es una condición del entorno externo que puede ser aprovechada por la empresa para mejorar su posición competitiva. Estas pueden surgir de cambios en el mercado, avances tecnológicos o tendencias favorables."},
   // 15
   {text:"¿Cuál de las siguientes alternativas representa mejor un factor clave interno de tipo fortaleza?",
    options:["Falta de recursos","Mala imagen","Baja productividad","Personal capacitado"],
    correct:3,difficulty:"easy",
-   justification:"El personal capacitado representa una ventaja interna que permite a la empresa ser más eficiente, innovadora y competitiva."},
+   justification:"porque el personal capacitado representa una ventaja interna que permite a la empresa ser más eficiente, innovadora y competitiva. Las demás opciones representan debilidades."},
   // 16
   {text:"En la construcción de la matriz FODA, ¿qué combinación describe correctamente una amenaza?",
    options:["Factor interno positivo","Factor interno negativo","Factor externo positivo","Factor externo negativo"],
    correct:3,difficulty:"easy",
-   justification:"Una amenaza proviene del entorno externo y puede afectar negativamente a la empresa, como crisis económicas o cambios regulatorios adversos."},
+   justification:"porque una amenaza proviene del entorno externo y puede afectar negativamente a la empresa, como crisis económicas o cambios regulatorios adversos."},
   // 17
   {text:"¿Cuál es el principal propósito de la matriz FODA dentro del proceso de formulación estratégica?",
    options:["Sustituir la misión","Controlar finanzas","Eliminar competencia","Analizar integralmente la empresa"],
    correct:3,difficulty:"easy",
-   justification:"El FODA integra tanto el análisis interno como externo, permitiendo una visión completa de la situación organizacional."},
+   justification:"porque el FODA integra tanto el análisis interno como externo, permitiendo una visión completa de la situación organizacional."},
   // 18
   {text:"Una empresa desea iniciar su proceso de formulación estratégica. ¿Cuál debería ser el primer foco principal para asegurar una base sólida del plan estratégico?",
    options:["Ejecutar acciones","Evaluar resultados","Controlar procesos","Analizar el entorno"],
    correct:3,difficulty:"medium",
-   justification:"Antes de tomar decisiones es necesario comprender el contexto en el que opera la empresa, identificando oportunidades y riesgos."},
+   justification:"porque antes de tomar decisiones es necesario comprender el contexto en el que opera la empresa, identificando oportunidades y riesgos."},
   // 19
   {text:"En el análisis del macroentorno, ¿cuál de las siguientes variables pertenece parcialmente a este nivel y no al microentorno?",
    options:["Clientes","Proveedores","Distribuidores","Tecnología del entorno"],
    correct:3,difficulty:"medium",
-   justification:"La tecnología del entorno forma parte del macroentorno al ser un factor externo general que afecta a todas las organizaciones de una industria."},
+   justification:"porque la tecnología forma parte del macroentorno al ser un factor externo general que afecta a todas las organizaciones de una industria o incluso de un país. Los avances tecnológicos, como la digitalización o la automatización, no dependen de una sola empresa y obligan a las organizaciones a adaptarse para mantenerse competitivas."},
   // 20
   {text:"En el análisis del microentorno, ¿cuál de los siguientes elementos es más relevante para identificar amenazas competitivas directas?",
    options:["Inflación","Política nacional","Cultura interna","Competidores"],
    correct:3,difficulty:"easy",
-   justification:"Los competidores forman parte del microentorno al influir de manera directa en las decisiones estratégicas de la empresa."},
+   justification:"porque los competidores forman parte del microentorno al influir de manera directa en las decisiones estratégicas de la empresa, como precios, calidad o posicionamiento. A diferencia de factores como la inflación o la política, que afectan de manera general a todas las empresas (macroentorno), los competidores interactúan directamente en el mercado en el que opera la organización."},
   // 21
   {text:"Una empresa tecnológica desea analizar cómo la regulación estatal futura sobre protección de datos podría afectar su modelo de negocio. ¿En qué parte del análisis del entorno estratégico debería ubicarse principalmente este aspecto?",
    options:["Interno","Operativo","Financiero","Legal externo"],
    correct:3,difficulty:"medium",
-   justification:"Las leyes y regulaciones son factores externos que forman parte del entorno político-legal, impuesto por el Estado y condicionan la forma en que las empresas operan."},
+   justification:"porque las leyes y regulaciones son factores externos que forman parte del entorno político-legal. Estas normas son impuestas por el Estado y condicionan la forma en que las empresas operan, estableciendo límites, obligaciones y oportunidades. La empresa no puede controlarlas, pero sí debe analizarlas para adaptarse estratégicamente y evitar sanciones."},
   // 22
   {text:"En una formulación estratégica rigurosa, ¿cuál de los siguientes ejemplos describe mejor un objetivo SMART para incrementar la cuota de mercado en un segmento específico?",
    options:["Aumentar ventas algún día","Mejorar la empresa","Tener éxito en el mercado","Incrementar ventas en un 10% en un año"],
    correct:3,difficulty:"medium",
-   justification:"La opción cumple con los criterios SMART: es específica, medible (10%), alcanzable, relevante y temporal (en un año)."},
+   justification:"porque cumple con los criterios SMART: es específico (incrementar ventas), medible (10%), alcanzable (depende del contexto), relevante (relacionado con el crecimiento empresarial) y temporal (en un año). Las demás opciones son demasiado generales o ambiguas, por lo que no permiten evaluar su cumplimiento."},
   // 23
   {text:"En el marco de la matriz FODA, ¿cuál de las siguientes combinaciones representa mejor una estrategia FO (Fortalezas-Oportunidades) bien formulada?",
    options:["Reducir debilidades internas","Evitar amenazas externas","Minimizar riesgos","Utilizar fortalezas para aprovechar oportunidades"],
    correct:3,difficulty:"hard",
-   justification:"Las estrategias FO buscan aprovechar las capacidades internas de la empresa para explotar condiciones favorables del entorno."},
+   justification:"porque las estrategias FO (Fortalezas-Oportunidades) buscan aprovechar las capacidades internas de la empresa para explotar condiciones favorables del entorno. Este tipo de estrategia es proactiva y orientada al crecimiento, ya que combina lo que la empresa hace bien con las oportunidades externas disponibles, generando una ventaja competitiva sostenible."},
   // 24
   {text:"Al analizar el microentorno competitivo, una empresa identifica que tres nuevos competidores de bajo costo han entrado en su mercado local. ¿Cómo debería clasificar este hallazgo dentro de la matriz FODA?",
    options:["Fortaleza","Amenaza","Debilidad","Oportunidad"],
    correct:3,difficulty:"hard",
-   justification:"Nuevos competidores de bajo costo representan una amenaza externa que puede afectar la posición competitiva de la empresa en su mercado."},
+   justification:"porque en el análisis FODA una oportunidad corresponde a un factor externo positivo que la empresa puede aprovechar para mejorar su desempeño. Estos cambios pueden estar relacionados con el mercado, la tecnología o tendencias favorables, y representan posibilidades de crecimiento o ventaja competitiva."},
   // 25
   {text:"Una compañía de servicios profesionales detecta que posee un equipo altamente calificado y una reputación sólida en el mercado, pero su estructura organizativa es rígida y sus sistemas de información son obsoletos. ¿Cómo deben clasificarse estos elementos en el análisis interno?",
    options:["Oportunidades y amenazas","Factores políticos","Factores económicos","Fortalezas y debilidades"],
    correct:3,difficulty:"medium",
-   justification:"Las fortalezas y debilidades son aspectos propios de la organización que pueden ser controlados y gestionados, correspondiendo al análisis interno."},
+   justification:"ya que las fortalezas y debilidades son aspectos propios de la organización que pueden ser controlados y gestionados. Estos elementos permiten identificar en qué áreas la empresa tiene ventajas y en cuáles necesita mejorar."},
   // 26
   {text:"Al definir estrategias maestras, una empresa con fuerte presencia en un mercado saturado decide enfocarse en vender más productos actuales a los mismos segmentos mediante promociones, fidelización y mejoras incrementales. ¿Qué tipo de estrategia maestra describe mejor este enfoque?",
    options:["Diversificación","Integración","Reducción","Penetración de mercado"],
    correct:3,difficulty:"medium",
-   justification:"La estrategia de penetración de mercado se centra en incrementar las ventas de productos existentes dentro del mismo mercado objetivo."},
+   justification:"porque la estrategia de penetración de mercado se centra en incrementar las ventas de productos existentes dentro del mismo mercado objetivo. Esto se logra mediante acciones como promociones, mejoras en el servicio, estrategias de precios o fortalecimiento de la marca."},
   // 27
   {text:"En un proceso de gestión del cambio asociado a la implementación estratégica, la dirección decide comunicar la visión, capacitar al personal en nuevas competencias y ajustar los sistemas de incentivos para apoyar los nuevos comportamientos. ¿Qué objetivo central persiguen estas acciones?",
    options:["Reducir costos","Eliminar la competencia","Sustituir la estrategia","Adaptar la organización a nuevas condiciones"],
    correct:3,difficulty:"hard",
-   justification:"La gestión del cambio busca preparar y acompañar a la organización en procesos de transformación para que las personas los adopten de manera efectiva."},
+   justification:"porque la gestión del cambio busca preparar y acompañar a la organización en procesos de transformación, ya sea por factores internos o externos. Esto incluye cambios tecnológicos, estructurales o estratégicos. Su objetivo no es solo implementar cambios, sino lograr que las personas los adopten de manera efectiva, reduciendo la resistencia y asegurando la continuidad del negocio."},
   // 28
   {text:"Una empresa diseña políticas empresariales para descuentos máximos regulares, niveles de autorización para inversiones y criterios de selección de proveedores. En el contexto de implementación estratégica, ¿qué función principal cumplen estas políticas?",
    options:["Limitar la innovación","Sustituir objetivos","Eliminar riesgos","Orientar la toma de decisiones"],
    correct:3,difficulty:"medium",
-   justification:"Las políticas organizacionales establecen directrices generales que guían el comportamiento y la toma de decisiones dentro de la empresa."},
+   justification:"porque las políticas organizacionales establecen directrices generales que guían el comportamiento y la toma de decisiones dentro de la empresa. Estas permiten mantener coherencia con la estrategia y asegurar que las acciones individuales estén alineadas con los objetivos institucionales. No eliminan riesgos, pero sí ayudan a gestionarlos de forma estructurada."},
   // 29
   {text:"Durante la formulación estratégica, la alta dirección quiere asegurarse de que los objetivos SMART estén alineados con los factores clave de éxito identificados en el análisis externo e interno. ¿Cuál es el enfoque más adecuado para lograr esta alineación?",
    options:["En decisiones improvisadas","Solo en metas financieras","Sin análisis previo","En el análisis FODA"],
    correct:3,difficulty:"hard",
-   justification:"Los objetivos estratégicos deben surgir de un diagnóstico claro: el análisis FODA garantiza que sean realistas, coherentes y alineados con el entorno."},
+   justification:"porque los objetivos estratégicos deben surgir de un diagnóstico claro de la situación de la empresa. El análisis FODA permite identificar fortalezas que se pueden potenciar, debilidades que deben corregirse, oportunidades que se pueden aprovechar y amenazas que deben mitigarse. Basarse en este análisis garantiza que los objetivos sean realistas, coherentes y alineados con el entorno."},
   // 30
   {text:"Durante un taller de formulación estratégica avanzada, se discute la diferencia entre misión y visión. ¿Cuál de las siguientes afirmaciones refleja mejor el papel de la visión en la formulación estratégica?",
    options:["Actividades diarias","Normas internas","Presupuesto","Futuro deseado de la organización"],
    correct:3,difficulty:"medium",
-   justification:"La visión describe el estado futuro al que aspira la organización, sirviendo como elemento motivador y orientador de las decisiones estratégicas."},
+   justification:"porque la visión describe el estado futuro al que aspira la organización. Sirve como un elemento motivador y orientador que guía la toma de decisiones estratégicas a largo plazo. No se enfoca en el presente ni en tareas operativas, sino en establecer una dirección clara hacia donde se quiere llegar."},
   // 31
   {text:"En la etapa de valoración dentro de un proceso de planificación estratégica, ¿qué actividad agrega más valor para preparar un buen Cuadro de Mando Integral (CMI)?",
    options:["Reducir costos","Eliminar procesos","Cambiar estructura","Medir el cumplimiento de objetivos"],
    correct:3,difficulty:"medium",
-   justification:"Los indicadores permiten cuantificar el desempeño en relación con los objetivos estratégicos, facilitando la toma de decisiones y el control."},
+   justification:"porque los indicadores son herramientas que permiten cuantificar el desempeño de la organización en relación con los objetivos estratégicos. Sin indicadores, no es posible evaluar si las acciones implementadas están generando los resultados esperados. Además, facilitan la toma de decisiones basada en datos y el control estratégico."},
   // 32
   {text:"¿Cuál es el propósito principal de los planos de acción derivados del Cuadro de Mando Integral (CMI)?",
    options:["Sustituir la misión","Eliminar control","Reducir costos automáticamente","Convertir objetivos en acciones concretas"],
    correct:3,difficulty:"medium",
-   justification:"Los planes de acción traducen los objetivos estratégicos en actividades específicas, asignando responsables, recursos y plazos para su ejecución."},
+   justification:"porque los planes de acción traducen los objetivos estratégicos en actividades específicas, asignando responsables, recursos y plazos. Esto permite pasar de la planificación a la ejecución, asegurando que la estrategia no se quede en un nivel teórico, sino que se implemente de manera práctica."},
   // 33
   {text:"En un sistema de control basado en el CMI, ¿qué característica distingue al control estratégico de un simple control operativo?",
    options:["Controlar tareas diarias","Medir solo gastos","Evitar el uso de indicadores","Evaluar el cumplimiento de los objetivos estratégicos"],
    correct:3,difficulty:"medium",
-   justification:"El control estratégico verifica si la organización está avanzando hacia el logro de sus objetivos a largo plazo, detectando desviaciones y aplicando correctivos."},
+   justification:"porque el control estratégico se enfoca en verificar si la organización está avanzando hacia el logro de sus objetivos a largo plazo. Este proceso permite detectar desviaciones, analizar sus causas y aplicar acciones correctivas. A diferencia del control operativo, no se centra en el día a día, sino en los resultados globales de la estrategia."},
   // 34
   {text:"¿Cuál de las siguientes afirmaciones describe mejor la perspectiva financiera en el Cuadro de Mando Integral (CMI)?",
    options:["Satisfacción del cliente","Procesos internos","Cultura organizacional","Rentabilidad económica"],
    correct:3,difficulty:"easy",
-   justification:"La perspectiva financiera evalúa los resultados económicos de la empresa, como ingresos, costos, utilidades y rentabilidad."},
+   justification:"porque la perspectiva financiera evalúa los resultados económicos de la empresa, como ingresos, costos, utilidades y rentabilidad. Esta dimensión es clave porque refleja si la estrategia implementada está generando valor para la organización y sus accionistas."},
   // 35
   {text:"En la perspectiva del cliente del CMI, ¿qué tipo de indicador es más coherente con su propósito?",
    options:["Costos","Procesos","Inventarios","Satisfacción del cliente"],
    correct:3,difficulty:"easy",
-   justification:"Esta perspectiva evalúa cómo los clientes perciben a la empresa, considerando calidad, servicio, fidelización y valor ofrecido."},
+   justification:"porque esta perspectiva se enfoca en evaluar cómo los clientes perciben a la empresa, considerando aspectos como calidad, servicio, fidelización y valor ofrecido. Una alta satisfacción del cliente suele traducirse en mejores resultados financieros a largo plazo."},
   // 36
   {text:"¿Cuál es el enfoque central de la perspectiva de procesos internos en el CMI?",
    options:["Reducir salarios","Cambiar visión","Analizar política","Mejorar la eficiencia de procesos"],
    correct:3,difficulty:"medium",
-   justification:"Esta perspectiva analiza los procesos clave para optimizarlos, mejorar la calidad y aumentar la competitividad organizacional."},
+   justification:"porque esta perspectiva analiza los procesos clave de la organización con el objetivo de optimizarlos. Mejorar la eficiencia y calidad de los procesos internos permite ofrecer mejores productos o servicios, reducir costos y aumentar la competitividad."},
   // 37
   {text:"¿Qué aspecto caracteriza principalmente a la perspectiva de aprendizaje y crecimiento en el CMI?",
    options:["Costos","Impuestos","Proveedores","Innovación y talento humano"],
    correct:3,difficulty:"medium",
-   justification:"Esta perspectiva se enfoca en el desarrollo del capital humano, la innovación y la capacidad de adaptación, que sustentan el resto del CMI."},
+   justification:"porque esta perspectiva se enfoca en el desarrollo del capital humano, la innovación y la capacidad de adaptación de la empresa. Sin una base sólida en aprendizaje y crecimiento, es difícil sostener mejoras en procesos, satisfacción del cliente y resultados financieros."},
   // 38
   {text:"¿Qué función principal cumple el mapa estratégico dentro del enfoque del Cuadro de Mando Integral?",
    options:["Presupuesto","Indicadores","Organigrama","Relación causa-efecto entre objetivos"],
    correct:3,difficulty:"medium",
-   justification:"El mapa estratégico muestra cómo los objetivos de las diferentes perspectivas del CMI se conectan entre sí mediante relaciones de causa y efecto."},
+   justification:"porque el mapa estratégico muestra cómo los objetivos de las diferentes perspectivas del CMI se conectan entre sí. Estas relaciones de causa y efecto permiten entender cómo las mejoras en aprendizaje impactan en procesos, luego en clientes y finalmente en resultados financieros."},
   // 39
   {text:"En el análisis de desarrollo organizacional asociado al CMI, ¿qué aspecto resulta más relevante evaluar?",
    options:["Infraestructura","Ventas","Edificio","Cultura y capacidades organizacionales"],
    correct:3,difficulty:"medium",
-   justification:"El desarrollo organizacional busca mejorar la cultura, el clima laboral y las capacidades del talento humano, impactando el desempeño empresarial."},
+   justification:"porque el desarrollo organizacional busca mejorar la cultura, el clima laboral y las capacidades del talento humano, lo cual impacta directamente en el desempeño y la sostenibilidad de la empresa."},
   // 40
   {text:"Durante la etapa de evaluación previa al diseño del CMI, ¿qué herramienta o enfoque es más útil para identificar fortalezas y debilidades internas de la organización?",
    options:["Balance general","Organigrama","Publicidad","Análisis FODA"],
    correct:3,difficulty:"medium",
-   justification:"El análisis FODA evalúa factores internos (fortalezas y debilidades) y externos (oportunidades y amenazas), siendo el insumo clave para el diseño del CMI."},
+   justification:"porque el análisis FODA es una herramienta estratégica que permite evaluar tanto factores internos (fortalezas y debilidades) como externos (oportunidades y amenazas). En este caso, se enfoca en el análisis interno, facilitando la identificación de capacidades y limitaciones que influyen directamente en el desempeño organizacional."},
   // 41
   {text:"¿Cuáles de las siguientes afirmaciones describen mejor la relación entre el CMI y el control de gestión?",
    options:["Eliminar la estrategia","Controlar únicamente las finanzas","Sustituir la misión","Traducir la estrategia en indicadores medibles"],
    correct:3,difficulty:"medium",
-   justification:"El CMI convierte la estrategia en objetivos concretos e indicadores que pueden ser medidos y evaluados desde diferentes perspectivas."},
+   justification:"porque el CMI convierte la estrategia en objetivos concretos e indicadores que pueden ser medidos y evaluados. Esto permite hacer seguimiento al desempeño organizacional desde diferentes perspectivas y asegurar que la estrategia se esté implementando correctamente."},
   // 42
   {text:"Cuando se diseñan planes de acción vinculados a la perspectiva del cliente, ¿qué criterio es más importante para seleccionar las acciones prioritarias?",
    options:["Costos operativos","Procesos internos","Infraestructura","Satisfacción del cliente"],
    correct:3,difficulty:"easy",
-   justification:"Esta perspectiva mide cómo los clientes perciben a la empresa, evaluando calidad, servicio, fidelización y valor entregado."},
+   justification:"porque esta perspectiva mide cómo los clientes perciben a la empresa, evaluando aspectos como calidad, servicio, fidelización y valor entregado. La satisfacción del cliente es clave para garantizar la permanencia y crecimiento en el mercado."},
   // 43
   {text:"¿Qué característica distingue a un indicador bien definido dentro de un CMI?",
    options:["Generales y ambiguos","Sin relación con objetivos","Opcionales","Claros y medibles"],
    correct:3,difficulty:"medium",
-   justification:"Los indicadores deben permitir evaluar de manera objetiva el desempeño; si no son claros ni medibles, no cumplen su función de control y seguimiento."},
+   justification:"porque los indicadores deben permitir evaluar de manera objetiva el desempeño. Si no son claros ni medibles, no cumplen su función de control y seguimiento, lo que dificulta la toma de decisiones."},
   // 44
   {text:"En la construcción del mapa estratégico, ¿qué se busca al conectar objetivos de la perspectiva de aprendizaje y crecimiento con los procesos internos?",
    options:["Ninguna relación","Se sustituyen mutuamente","Se eliminan entre sí","El talento mejora la eficiencia de los procesos"],
    correct:3,difficulty:"hard",
-   justification:"El talento humano ejecuta los procesos; cuando el personal está capacitado y motivado, los procesos mejoran en eficiencia y calidad."},
+   justification:"porque el talento humano es el encargado de ejecutar los procesos. Cuando el personal está capacitado y motivado, los procesos se desarrollan de manera más eficiente, mejorando la calidad y productividad de la organización."},
   // 45
   {text:"En el contexto del CMI, ¿qué propósito cumple el análisis periódico de resultados en la etapa de control?",
    options:["Eliminar objetivos","Evitar la planificación","Reducir personal","Detectar y corregir desviaciones"],
    correct:3,difficulty:"medium",
-   justification:"El control estratégico compara los resultados con los objetivos planteados y permite tomar acciones correctivas para asegurar el cumplimiento de la estrategia."},
+   justification:"porque el control estratégico permite comparar los resultados obtenidos con los objetivos planteados. Si existen diferencias, se pueden tomar acciones correctivas para mejorar el desempeño y asegurar el cumplimiento de la estrategia."},
   // 46
   {text:"Al diseñar objetivos para la perspectiva financiera del CMI, ¿qué enfoque es más coherente con la lógica del modelo?",
    options:["Indicadores de cliente","Indicadores operativos","Indicadores sociales","Indicadores financieros"],
    correct:3,difficulty:"easy",
-   justification:"Los indicadores financieros permiten evaluar el desempeño económico, incluyendo variables como ingresos, costos, utilidades y rentabilidad."},
+   justification:"porque estos indicadores permiten evaluar el desempeño económico de la empresa, incluyendo variables como ingresos, costos, utilidades y rentabilidad."},
   // 47
   {text:"En la etapa de evaluación, respecto al desarrollo organizacional, ¿qué pregunta es más útil formular para alimentar el diseño del CMI?",
    options:["Desorden organizacional","Trabajo aislado","Eliminación de procesos","Coherencia entre objetivos y acciones"],
    correct:3,difficulty:"medium",
-   justification:"La alineación estratégica garantiza que todas las áreas trabajen en función de los mismos objetivos, evitando esfuerzos dispersos y mejorando la eficiencia."},
+   justification:"porque la alineación estratégica garantiza que todas las áreas y actividades de la empresa trabajen en función de los mismos objetivos, evitando esfuerzos dispersos y mejorando la eficiencia organizacional."},
   // 48
   {text:"En la perspectiva de procesos internos, ¿qué tipo de indicador sería más apropiado para evaluar la eficacia de un proceso de atención al cliente?",
    options:["Definir el futuro","Sustituir la visión","Establecer normas","Definir la razón de ser de la organización en el presente"],
    correct:3,difficulty:"medium",
-   justification:"La misión describe la razón de ser de la empresa en el presente, incluyendo su actividad principal, el público al que se dirige y el valor que ofrece."},
+   justification:"porque la misión describe la razón de ser de la empresa en el momento actual, incluyendo su actividad principal, el público al que se dirige y el valor que ofrece. Aunque la opción b) se acerca, la definición más completa y precisa de misión es la que incluye explícitamente su identidad y propósito actual, lo que la convierte en la base para la toma de decisiones estratégicas."},
   // 49
   {text:"En la perspectiva de aprendizaje y crecimiento, ¿qué indicador sería más adecuado para reflejar el desarrollo de competencias críticas para la estrategia?",
    options:["Mantener errores","Reducir calidad","Eliminar clientes","Optimizar procesos constantemente"],
    correct:3,difficulty:"easy",
-   justification:"La mejora continua es un proceso sistemático orientado a perfeccionar las actividades de la organización, incrementando eficiencia y calidad para mantener competitividad."},
+   justification:"porque la mejora continua implica un proceso sistemático orientado a perfeccionar constantemente las actividades de la organización. Este enfoque busca incrementar la eficiencia, reducir errores y mejorar la calidad, permitiendo a la empresa adaptarse a los cambios y mantenerse competitiva en el tiempo."},
   // 50
   {text:"¿Qué representa mejor la integración entre el CMI y el análisis de desarrollo organizacional?",
    options:["Falta de liderazgo","Improvisación","Compromiso organizacional","Alineación y compromiso organizacional"],
    correct:3,difficulty:"hard",
-   justification:"No basta con el compromiso individual; se requiere alineación de toda la organización con los objetivos estratégicos para asegurar coherencia entre lo planificado y lo ejecutado."},
+   justification:"porque no basta con el compromiso individual, sino que se requiere una alineación general de toda la organización con los objetivos estratégicos. Esto implica que todos los niveles trabajen en la misma dirección, asegurando coherencia entre lo planificado y lo ejecutado."},
   // 51
   {text:"En una agroindustria de cacao que busca implementar un Cuadro de Mando Integral, ¿cuál sería el principal propósito de un plan de acción complejo en la etapa de valoración avanzada?",
    options:["Actuar sin dirección","Eliminar riesgos totalmente","Evitar decisiones","Definir objetivos y estrategias a largo plazo"],
    correct:3,difficulty:"easy",
-   justification:"La planificación estratégica establece el rumbo de la organización, definiendo metas claras y las acciones necesarias para alcanzarlas."},
+   justification:"porque la planificación estratégica establece el rumbo de la organización, definiendo metas claras y las acciones necesarias para alcanzarlas. Además, permite anticipar escenarios futuros y tomar decisiones fundamentadas."},
+
+  // ── PREGUNTAS 52–60 CORREGIDAS (respuesta correcta = opción A = índice 0) ──
+
   // 52
   {text:"En un esquema de control estratégico iterativo aplicado al Cuadro de Mando Integral de una empresa de cacao, ¿qué caracteriza mejor el enfoque iterativo?",
-   options:["Factor externo positivo","Factor externo negativo","Factor interno positivo","Factor interno negativo"],
-   correct:3,difficulty:"easy",
-   justification:"Una debilidad es una limitación interna que afecta el desempeño de la empresa; identificarlas es clave para corregirlas y evitar desventajas competitivas."},
+   options:[
+     "Evaluar resultados continuamente y ajustar estrategias según el desempeño.",
+     "Aplicar una sola evaluación al final del proceso.",
+     "Ignorar cambios del entorno.",
+     "Mantener indicadores sin modificaciones."
+   ],
+   correct:0,difficulty:"easy",
+   justification:"La respuesta correcta es la a, porque el enfoque iterativo implica mejora continua y retroalimentación constante."},
+
   // 53
   {text:"Al diseñar el Cuadro de Mando Integral (CMI) en una agroindustria de cacao, ¿cuál de las siguientes formulaciones de objetivo ilustra mejor la interrelación entre la perspectiva de procesos internos y la de clientes?",
-   options:["Es interna","Beneficia a la empresa","Representa un riesgo externo","Factor externo que puede afectar negativamente a la organización"],
-   correct:3,difficulty:"medium",
-   justification:"Una amenaza es un factor externo que puede perjudicar a la empresa, afectando su posición competitiva o su capacidad de operar."},
+   options:[
+     "Mejorar la calidad del procesamiento para aumentar la satisfacción del cliente.",
+     "Reducir únicamente salarios administrativos.",
+     "Incrementar impuestos corporativos.",
+     "Cambiar el logotipo empresarial."
+   ],
+   correct:0,difficulty:"medium",
+   justification:"La opción a es la correcta porque refleja claramente la lógica de causa-efecto del Cuadro de Mando Integral, donde las mejoras en la perspectiva de procesos internos (como optimizar la calidad del procesamiento del cacao) generan un impacto directo en la perspectiva del cliente (mayor satisfacción, confianza y fidelización)."},
+
   // 54
   {text:"¿Qué mide la 'valoración previa' en un plan de acción del CMI?",
-   options:["Ignorar cambios","Eliminar competencia","Evitar planificación","Anticipar oportunidades y riesgos"],
-   correct:3,difficulty:"easy",
-   justification:"El análisis del entorno identifica tanto oportunidades como amenazas, facilitando la toma de decisiones estratégicas y la adaptación a cambios externos."},
+   options:[
+     "El estado inicial y la capacidad organizacional antes de implementar la estrategia.",
+     "Solo las ventas futuras.",
+     "Únicamente el presupuesto anual.",
+     "El número de oficinas disponibles."
+   ],
+   correct:0,difficulty:"easy",
+   justification:"La opción a es correcta porque la 'valoración previa' en el Cuadro de Mando Integral permite diagnosticar la situación actual de la organización antes de ejecutar el plan. Esto incluye recursos, capacidades, procesos y nivel de preparación."},
+
   // 55
   {text:"En control del CMI, si el blockchain está al 60% de la meta, ¿qué haces PRIMERO?",
-   options:["Penetración","Desarrollo de mercado","Integración","Diversificación"],
-   correct:3,difficulty:"medium",
-   justification:"La diversificación implica expandirse tanto en productos como en mercados, siendo una estrategia de crecimiento con mayor nivel de riesgo pero también de oportunidad."},
+   options:[
+     "Analizar las causas de la desviación y aplicar acciones correctivas.",
+     "Eliminar el proyecto inmediatamente.",
+     "Cambiar toda la estrategia sin análisis.",
+     "Ignorar el resultado obtenido."
+   ],
+   correct:0,difficulty:"medium",
+   justification:"La opción a es correcta porque en el control estratégico del Cuadro de Mando Integral no basta con detectar que una meta no se cumple (60%), sino que lo primero es entender por qué ocurre la desviación. Este análisis permite tomar decisiones informadas y aplicar acciones correctivas efectivas, en lugar de reaccionar de forma impulsiva o sin fundamento."},
+
   // 56
   {text:"¿Por qué el CMI usa 4 perspectivas y no solo la financiera?",
-   options:["Uso inadecuado de recursos","Aumento de costos","Reducción de calidad","Uso óptimo de recursos para lograr resultados"],
-   correct:3,difficulty:"easy",
-   justification:"La eficiencia implica lograr los objetivos utilizando la menor cantidad de recursos posible, optimizando tiempo, costos y esfuerzo sin afectar la calidad."},
+   options:[
+     "Porque integra una visión equilibrada del desempeño organizacional.",
+     "Porque elimina la importancia de las finanzas.",
+     "Porque solo analiza clientes.",
+     "Porque reemplaza el análisis estratégico."
+   ],
+   correct:0,difficulty:"easy",
+   justification:"La respuesta correcta es la a, ya que el CMI considera finanzas, clientes, procesos y aprendizaje para una visión integral."},
+
   // 57
   {text:"En la agroindustria de cacao, ¿cuál es el indicador financiero PRINCIPAL del CMI?",
-   options:["Un objetivo general","Una política","Una misión","Una herramienta de medición del desempeño organizacional"],
-   correct:3,difficulty:"medium",
-   justification:"Un KPI permite evaluar el nivel de cumplimiento de objetivos específicos mediante datos cuantificables, facilitando el control y la toma de decisiones."},
+   options:[
+     "Rentabilidad y crecimiento de ingresos.",
+     "Número de empleados capacitados.",
+     "Tiempo de respuesta al cliente.",
+     "Nivel de satisfacción laboral."
+   ],
+   correct:0,difficulty:"medium",
+   justification:"La opción a es correcta porque en la perspectiva financiera del Cuadro de Mando Integral, los indicadores principales están orientados a medir la creación de valor económico. La rentabilidad (como EBITDA o margen) y el crecimiento de ingresos reflejan directamente el éxito de la estrategia y permiten evaluar si las demás perspectivas están contribuyendo a resultados financieros positivos."},
+
   // 58
-  {text:"¿Qué falta en este mapa? 'EBITDA ← NPS' (solo 2 flechas)",
-   options:["Improvisación","Desorganización","Información clara y oportuna","Uso de información confiable, clara y oportuna para analizar escenarios"],
-   correct:3,difficulty:"hard",
-   justification:"La toma de decisiones estratégicas requiere información de calidad que permita analizar diferentes escenarios y elegir la mejor alternativa posible."},
+  {text:"¿Qué falta en este mapa estratégico? 'EBITDA ← NPS' (solo 2 flechas)",
+   options:[
+     "Las relaciones completas entre todas las perspectivas estratégicas.",
+     "Únicamente el logotipo empresarial.",
+     "Los nombres de los empleados.",
+     "El organigrama financiero."
+   ],
+   correct:0,difficulty:"hard",
+   justification:"La opción a es correcta porque un mapa estratégico del Cuadro de Mando Integral debe mostrar una red completa de relaciones causa-efecto entre todas las perspectivas, no solo una conexión aislada como 'EBITDA ← NPS'. Falta incluir cómo el aprendizaje impulsa los procesos, cómo estos impactan al cliente y finalmente cómo se reflejan en lo financiero, logrando una visión estratégica completa."},
+
   // 59
   {text:"Los empleados NO quieren usar blockchain (60% vs 100%). ¿Qué haces?",
-   options:["Reducir calidad","Evitar innovación","Eliminar procesos","Superar a la competencia en el mercado mediante ventajas sostenibles"],
-   correct:3,difficulty:"medium",
-   justification:"La competitividad implica la capacidad de una empresa para diferenciarse y posicionarse mejor que sus competidores, ofreciendo mayor valor al cliente."},
+   options:[
+     "Capacitar, comunicar beneficios y gestionar el cambio organizacional.",
+     "Obligar sin explicación alguna.",
+     "Eliminar toda la tecnología.",
+     "Ignorar la resistencia del personal."
+   ],
+   correct:0,difficulty:"medium",
+   justification:"La opción a es correcta porque la resistencia al cambio es un factor común en la implementación de nuevas tecnologías como blockchain. En el contexto del Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento enfatiza la capacitación, la comunicación y la alineación cultural para asegurar que los empleados adopten la estrategia, en lugar de imponer cambios sin preparación."},
+
   // 60
   {text:"¿Qué mide BIEN el aprendizaje en CMI?",
-   options:["Improvisación","Falta de control","Desorganización","Seguimiento, control y evaluación constante de las acciones estratégicas"],
-   correct:3,difficulty:"hard",
-   justification:"La ejecución estratégica requiere monitoreo continuo para verificar avances, detectar desviaciones y aplicar correcciones oportunas para asegurar el cumplimiento de los objetivos."}
+   options:[
+     "Desarrollo de competencias, innovación y capacitación del personal.",
+     "Solo ingresos financieros.",
+     "Cantidad de oficinas corporativas.",
+     "Número de productos almacenados."
+   ],
+   correct:0,difficulty:"hard",
+   justification:"La opción a es correcta porque en el Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento mide los factores que permiten la mejora continua de la organización, como las habilidades del talento humano, la innovación y el uso de tecnología. Estos elementos son la base para fortalecer procesos internos y lograr mejores resultados estratégicos a largo plazo."}
 ];
 
 const PRIZES=['$100','$200','$300','$500','$1.000','$2.000','$4.000','$8.000','$16.000','$32.000','$64.000','$125.000','$250.000','$500.000','$1.000.000'];
