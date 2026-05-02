@@ -371,7 +371,7 @@ let questions = [
      "Mantener indicadores sin modificaciones."
    ],
    correct:0,difficulty:"easy",
-   justification:"La respuesta correcta es la a, porque el enfoque iterativo implica mejora continua y retroalimentación constante."},
+   justification:"Porque el enfoque iterativo implica mejora continua y retroalimentación constante."},
 
   // 53
   {text:"Al diseñar el Cuadro de Mando Integral (CMI) en una agroindustria de cacao, ¿cuál de las siguientes formulaciones de objetivo ilustra mejor la interrelación entre la perspectiva de procesos internos y la de clientes?",
@@ -382,7 +382,7 @@ let questions = [
      "Cambiar el logotipo empresarial."
    ],
    correct:0,difficulty:"medium",
-   justification:"La opción a es la correcta porque refleja claramente la lógica de causa-efecto del Cuadro de Mando Integral, donde las mejoras en la perspectiva de procesos internos (como optimizar la calidad del procesamiento del cacao) generan un impacto directo en la perspectiva del cliente (mayor satisfacción, confianza y fidelización)."},
+   justification:"Porque refleja claramente la lógica de causa-efecto del Cuadro de Mando Integral, donde las mejoras en la perspectiva de procesos internos (como optimizar la calidad del procesamiento del cacao) generan un impacto directo en la perspectiva del cliente (mayor satisfacción, confianza y fidelización)."},
 
   // 54
   {text:"¿Qué mide la 'valoración previa' en un plan de acción del CMI?",
@@ -393,7 +393,7 @@ let questions = [
      "El número de oficinas disponibles."
    ],
    correct:0,difficulty:"easy",
-   justification:"La opción a es correcta porque la 'valoración previa' en el Cuadro de Mando Integral permite diagnosticar la situación actual de la organización antes de ejecutar el plan. Esto incluye recursos, capacidades, procesos y nivel de preparación."},
+   justification:"Porque la 'valoración previa' en el Cuadro de Mando Integral permite diagnosticar la situación actual de la organización antes de ejecutar el plan. Esto incluye recursos, capacidades, procesos y nivel de preparación."},
 
   // 55
   {text:"En control del CMI, si el blockchain está al 60% de la meta, ¿qué haces PRIMERO?",
@@ -404,7 +404,7 @@ let questions = [
      "Ignorar el resultado obtenido."
    ],
    correct:0,difficulty:"medium",
-   justification:"La opción a es correcta porque en el control estratégico del Cuadro de Mando Integral no basta con detectar que una meta no se cumple (60%), sino que lo primero es entender por qué ocurre la desviación. Este análisis permite tomar decisiones informadas y aplicar acciones correctivas efectivas, en lugar de reaccionar de forma impulsiva o sin fundamento."},
+   justification:"Porque en el control estratégico del Cuadro de Mando Integral no basta con detectar que una meta no se cumple (60%), sino que lo primero es entender por qué ocurre la desviación. Este análisis permite tomar decisiones informadas y aplicar acciones correctivas efectivas, en lugar de reaccionar de forma impulsiva o sin fundamento."},
 
   // 56
   {text:"¿Por qué el CMI usa 4 perspectivas y no solo la financiera?",
@@ -415,7 +415,7 @@ let questions = [
      "Porque reemplaza el análisis estratégico."
    ],
    correct:0,difficulty:"easy",
-   justification:"La respuesta correcta es la a, ya que el CMI considera finanzas, clientes, procesos y aprendizaje para una visión integral."},
+   justification:"Ya que el CMI considera finanzas, clientes, procesos y aprendizaje para una visión integral."},
 
   // 57
   {text:"En la agroindustria de cacao, ¿cuál es el indicador financiero PRINCIPAL del CMI?",
@@ -426,7 +426,7 @@ let questions = [
      "Nivel de satisfacción laboral."
    ],
    correct:0,difficulty:"medium",
-   justification:"La opción a es correcta porque en la perspectiva financiera del Cuadro de Mando Integral, los indicadores principales están orientados a medir la creación de valor económico. La rentabilidad (como EBITDA o margen) y el crecimiento de ingresos reflejan directamente el éxito de la estrategia y permiten evaluar si las demás perspectivas están contribuyendo a resultados financieros positivos."},
+   justification:"En la perspectiva financiera del Cuadro de Mando Integral, los indicadores principales están orientados a medir la creación de valor económico. La rentabilidad (como EBITDA o margen) y el crecimiento de ingresos reflejan directamente el éxito de la estrategia y permiten evaluar si las demás perspectivas están contribuyendo a resultados financieros positivos."},
 
   // 58
   {text:"¿Qué falta en este mapa estratégico? 'EBITDA ← NPS' (solo 2 flechas)",
@@ -437,7 +437,7 @@ let questions = [
      "El organigrama financiero."
    ],
    correct:0,difficulty:"hard",
-   justification:"La opción a es correcta porque un mapa estratégico del Cuadro de Mando Integral debe mostrar una red completa de relaciones causa-efecto entre todas las perspectivas, no solo una conexión aislada como 'EBITDA ← NPS'. Falta incluir cómo el aprendizaje impulsa los procesos, cómo estos impactan al cliente y finalmente cómo se reflejan en lo financiero, logrando una visión estratégica completa."},
+   justification:"Un mapa estratégico del Cuadro de Mando Integral debe mostrar una red completa de relaciones causa-efecto entre todas las perspectivas, no solo una conexión aislada como 'EBITDA ← NPS'. Falta incluir cómo el aprendizaje impulsa los procesos, cómo estos impactan al cliente y finalmente cómo se reflejan en lo financiero, logrando una visión estratégica completa."},
 
   // 59
   {text:"Los empleados NO quieren usar blockchain (60% vs 100%). ¿Qué haces?",
@@ -448,7 +448,7 @@ let questions = [
      "Ignorar la resistencia del personal."
    ],
    correct:0,difficulty:"medium",
-   justification:"La opción a es correcta porque la resistencia al cambio es un factor común en la implementación de nuevas tecnologías como blockchain. En el contexto del Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento enfatiza la capacitación, la comunicación y la alineación cultural para asegurar que los empleados adopten la estrategia, en lugar de imponer cambios sin preparación."},
+   justification:"La resistencia al cambio es un factor común en la implementación de nuevas tecnologías como blockchain. En el contexto del Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento enfatiza la capacitación, la comunicación y la alineación cultural para asegurar que los empleados adopten la estrategia, en lugar de imponer cambios sin preparación."},
 
   // 60
   {text:"¿Qué mide BIEN el aprendizaje en CMI?",
@@ -459,7 +459,7 @@ let questions = [
      "Número de productos almacenados."
    ],
    correct:0,difficulty:"hard",
-   justification:"La opción a es correcta porque en el Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento mide los factores que permiten la mejora continua de la organización, como las habilidades del talento humano, la innovación y el uso de tecnología. Estos elementos son la base para fortalecer procesos internos y lograr mejores resultados estratégicos a largo plazo."}
+   justification:"En el Cuadro de Mando Integral, la perspectiva de aprendizaje y crecimiento mide los factores que permiten la mejora continua de la organización, como las habilidades del talento humano, la innovación y el uso de tecnología. Estos elementos son la base para fortalecer procesos internos y lograr mejores resultados estratégicos a largo plazo."}
 ];
 
 const PRIZES=['$100','$200','$300','$500','$1.000','$2.000','$4.000','$8.000','$16.000','$32.000','$64.000','$125.000','$250.000','$500.000','$1.000.000'];
